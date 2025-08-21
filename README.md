@@ -1,34 +1,40 @@
-# 🌐 Personal Portfolio Website
+# 💡 Floating Flashcards Widget
 
-A simple and responsive personal portfolio website built with **HTML, CSS, and JavaScript**.  
-This project is perfect for showcasing your skills, projects, and contact information.  
-
-Live Demo 👉 [View Portfolio](https://debeatzgh.github.io/portfolio-site/)
+A simple **floating flashcards learning app** for websites and blogs.  
+Click the floating 💡 button to launch the flashcards modal, flip through interactive Q&A cards, and learn on the go!
 
 ---
 
-## ✨ Features
-- Responsive design (works on mobile & desktop)  
-- Navigation bar with smooth scrolling  
-- Hero section with intro & call-to-action button  
-- About section with bio details  
-- Projects section with cards  
-- Contact section with email & social links  
-- **Dark mode toggle** 🌙☀️  
+## 🚀 Features
+- Floating launcher button (bottom-right corner)
+- Smooth modal pop-up with fade-in animation
+- Interactive flashcards with **flip effect**
+- 20 curated questions on **Tech, AI, Software Development & Online Business**
+- Next / Previous navigation buttons
+- Easy to embed in **Blogger, WordPress, or any website**
 
 ---
 
-## 🛠️ Technologies Used
-- **HTML5** – Structure  
-- **CSS3** – Styling & Responsive design  
-- **JavaScript (Vanilla)** – Interactivity (dark mode toggle)  
-- **GitHub Pages** – Free hosting & deployment  
+## 📸 Preview
+![Thumbnail](https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/min.png)
+
+👉 **[Live Preview](https://beatzde4.blogspot.com/p/open-debeatzgh.html)**
 
 ---
 
-## 🚀 Getting Started
-To run this project locally:  
+## 📦 Installation
+1. Copy the full widget code from [`index.html`](index.html).
+2. Paste inside your website/blog HTML (before the `</body>` tag).
+3. Save & publish 🚀
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/debeatzgh1/portfolio-site.git
+---
+
+## 🛠️ Usage
+- Click 💡 to open flashcards
+- Tap a card to flip (Question ↔ Answer)
+- Navigate using ⬅ Prev / Next ➡
+- Close ❌ button to exit
+
+---
+
+## 📂 File Structure
