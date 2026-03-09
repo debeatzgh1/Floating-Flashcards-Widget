@@ -1,3 +1,135 @@
+<div id="smart-float-container" class="float-wrapper">
+    <div id="float-nudge" class="float-nudge">
+        <p>Claim your <strong>.wordpress.com</strong> site!</p>
+        <button onclick="dismissNudge()" class="nudge-close">×</button>
+    </div>
+
+    <div class="float-main-btn" onclick="launchWPSignup()">
+        <i class="fab fa-wordpress"></i>
+        <span class="btn-label">Create Site</span>
+    </div>
+</div>
+
+<style>
+    .float-wrapper {
+        position: fixed;
+        bottom: 20px;
+        left: 70%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        z-index: 10005;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Floating Nudge Bubble */
+    .float-nudge {
+        background: rgba(10, 10, 12, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 242, 255, 0.3);
+        padding: 8px 15px;
+        border-radius: 12px;
+        color: #f0f6fc;
+        font-size: 11px;
+        white-space: nowrap;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        display: none; /* Controlled by JS */
+        animation: slideUpFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nudge-close {
+        background: none;
+        border: none;
+        color: #64748b;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0 2px;
+        line-height: 1;
+    }
+
+    .nudge-close:hover { color: #00f2ff; }
+
+    /* Main Button */
+    .float-main-btn {
+        background: #00f2ff;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 99px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 1px;
+        box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .float-main-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        background: #fff;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    .float-main-btn i { font-size: 14px; }
+
+    @keyframes slideUpFade {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+        .float-main-btn { padding: 10px 16px; }
+        .btn-label { display: none; } /* On mobile, only show icon to save space */
+    }
+</style>
+
+<script>
+    const NUDGE_KEY = 'wp_nudge_dismissed';
+
+    function showNudge() {
+        const isDismissed = localStorage.getItem(NUDGE_KEY);
+        if (!isDismissed) {
+            document.getElementById('float-nudge').style.display = 'flex';
+        }
+    }
+
+    function dismissNudge() {
+        document.getElementById('float-nudge').style.display = 'none';
+        // Remember dismissal for 24h
+        localStorage.setItem(NUDGE_KEY, 'true');
+    }
+
+    function launchWPSignup() {
+        const targetUrl = "https://debeatzgh1.github.io/Blogger-sign-up-button-/";
+        
+        // Use existing overlay logic if available
+        if (typeof openLink === "function") {
+            openLink(targetUrl);
+        } else if (typeof openFrame === "function") {
+            openFrame(targetUrl);
+        } else {
+            window.open(targetUrl, '_blank');
+        }
+    }
+
+    // Auto-popup nudge after 8 seconds
+    window.addEventListener('load', () => {
+        setTimeout(showNudge, 8000);
+    });
+</script>
+
+
+
+
+
+
 <iframe class="BLOG_video_class" allowfullscreen="" youtube-src-id="rg7rR2MHdkQ" width="320" height="266" src="https://www.youtube.com/embed/rg7rR2MHdkQ"></iframe>
 <!-- Floating Flashcards Widget -->
 <style>
