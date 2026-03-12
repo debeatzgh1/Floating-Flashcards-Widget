@@ -1,83 +1,165 @@
- <button onclick="openLink('https://form.svhrt.com/60f4a0aeedc1993c8c7b3989')" class="fixed bottom-6 right-6 z-50 bg-cyan-500 text-black px-6 py-3 rounded-full font-black text-xs shadow-2xl shadow-cyan-500/20 hover:scale-110 transition animate-bounce">
-        🚀 SUGGEST
-    </button>
+ <nav id="slim-nav" class="slim-nav-container">
+    <div class="nav-left">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Switch Theme">
+            <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+        <div class="nav-divider"></div>
+        <span class="nav-inscription" onclick="openForm()">
+            Browse modern UI layout and pages <i class="fas fa-external-link-alt ml-1 opacity-40"></i>
+        </span>
+    </div>
 
-    <script>
-        // --- CANVAS ANIMATION ---
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+    <div class="nav-right">
+        <button onclick="scrollToTop()" class="nav-ctrl" title="Scroll to Top">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button onclick="scrollToBottom()" class="nav-ctrl" title="Scroll to Bottom">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+</nav>
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = Array.from({length: 60}, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vX: (Math.random() - 0.5) * 0.4,
-                vY: (Math.random() - 0.5) * 0.4
-            }));
+<style>
+    /* 1. THEME & TRANSITION LOGIC */
+    :root {
+        --nav-bg: rgba(10, 10, 12, 0.85);
+        --nav-text: #f0f6fc;
+        --nav-accent: #00f2ff;
+        --nav-border: rgba(0, 242, 255, 0.15);
+        --page-bg: #030712;
+    }
+
+    body[data-theme="light"] {
+        --nav-bg: rgba(255, 255, 255, 0.9);
+        --nav-text: #0f172a;
+        --nav-accent: #2563eb;
+        --nav-border: rgba(0, 0, 0, 0.08);
+        --page-bg: #f8fafc;
+    }
+
+    body {
+        background-color: var(--page-bg);
+        transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* 2. STICKY-HIDE ANIMATION */
+    .slim-nav-container {
+        position: fixed;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 92%;
+        max-width: 750px;
+        height: 44px;
+        background: var(--nav-bg);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid var(--nav-border);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+        z-index: 10000;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    top 0.4s ease, 
+                    background 0.3s ease;
+    }
+
+    /* The 'Hidden' State */
+    .nav-up {
+        transform: translateX(-50%) translateY(-100px);
+    }
+
+    /* 3. COMPONENT STYLING */
+    .nav-left, .nav-right { display: flex; align-items: center; gap: 8px; }
+
+    .nav-inscription {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        color: var(--nav-text);
+        cursor: pointer;
+        transition: 0.2s;
+        text-transform: uppercase;
+    }
+
+    .nav-inscription:hover { color: var(--nav-accent); }
+
+    .nav-divider { width: 1px; height: 16px; background: var(--nav-border); margin: 0 4px; }
+
+    .theme-toggle, .nav-ctrl {
+        width: 32px; height: 32px;
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; color: var(--nav-text);
+        transition: 0.2s; border: none; background: transparent;
+    }
+
+    .theme-toggle:hover, .nav-ctrl:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--nav-accent);
+    }
+
+    body[data-theme="light"] .theme-toggle:hover,
+    body[data-theme="light"] .nav-ctrl:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 480px) {
+        .nav-inscription { font-size: 9px; max-width: 180px; }
+        .slim-nav-container { width: 96%; }
+    }
+</style>
+
+<script>
+    // --- 1. STICKY HIDE LOGIC ---
+    let lastScrollY = window.scrollY;
+    const nav = document.getElementById('slim-nav');
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling Down - Hide Nav
+            nav.classList.add('nav-up');
+        } else {
+            // Scrolling Up - Show Nav
+            nav.classList.remove('nav-up');
         }
+        lastScrollY = currentScrollY;
+    });
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(0, 242, 255, 0.4)';
-            particles.forEach(p => {
-                p.x += p.vX; p.y += p.vY;
-                if(p.x < 0 || p.x > canvas.width) p.vX *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vY *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, 1, 0, Math.PI * 2); ctx.fill();
-            });
-            requestAnimationFrame(animate);
+    // --- 2. EXTERNAL REDIRECT ---
+    function openForm() {
+        window.open('https://form.svhrt.com/60f4a0aeedc1993c8c7b3989', '_blank');
+    }
+
+    // --- 3. THEME ENGINE ---
+    function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById('theme-icon');
+        const isLight = body.getAttribute('data-theme') === 'light';
+        
+        if (isLight) {
+            body.removeAttribute('data-theme');
+            icon.className = 'fas fa-moon';
+            localStorage.setItem('debeatz_theme', 'dark');
+        } else {
+            body.setAttribute('data-theme', 'light');
+            icon.className = 'fas fa-sun';
+            localStorage.setItem('debeatz_theme', 'light');
         }
+    }
 
-        // --- OVERLAY SYSTEM ---
-        function openLink(url) {
-            document.getElementById('master-frame').src = url;
-            document.getElementById('master-overlay').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLink() {
-            document.getElementById('master-overlay').style.display = 'none';
-            document.getElementById('master-frame').src = '';
-            document.body.style.overflow = 'auto';
-        }
+    // --- 4. NAVIGATION ---
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
 
-        // --- TYPEWRITER ---
-        const messages = ["Accessing Digital Ecosystem...", "Updating AI Prompt Libraries...", "Syncing with Collaborator Nodes...", "System Ready. Welcome, Architect."];
-        let mIdx = 0, cIdx = 0;
-        function type() {
-            if (mIdx < messages.length) {
-                if (cIdx < messages[mIdx].length) {
-                    document.getElementById('typewriter').innerHTML += messages[mIdx].charAt(cIdx);
-                    cIdx++; setTimeout(type, 50);
-                } else {
-                    setTimeout(() => {
-                        document.getElementById('typewriter').innerHTML += "<br>> ";
-                        mIdx++; cIdx = 0; type();
-                    }, 1500);
-                }
-            }
-        }
-
-        // --- LAZY LOAD & INIT ---
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.reveal').forEach(el => {
-                if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
-            });
-        });
-
-        window.addEventListener('resize', initCanvas);
-        initCanvas(); animate(); type();
-        document.addEventListener('keydown', (e) => { if(e.key === "Escape") closeLink(); });
-        setTimeout(() => document.querySelector('.reveal').classList.add('active'), 100);
-    </script>
-</body>
-</html>
-
-
-
-
+    // Init Theme on Load
+    if (localStorage.getItem('debeatz_theme') === 'light') toggleTheme();
+</script>
 
 
 
