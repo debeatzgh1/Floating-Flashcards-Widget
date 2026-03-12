@@ -1,3 +1,86 @@
+ <button onclick="openLink('https://form.svhrt.com/60f4a0aeedc1993c8c7b3989')" class="fixed bottom-6 right-6 z-50 bg-cyan-500 text-black px-6 py-3 rounded-full font-black text-xs shadow-2xl shadow-cyan-500/20 hover:scale-110 transition animate-bounce">
+        🚀 SUGGEST
+    </button>
+
+    <script>
+        // --- CANVAS ANIMATION ---
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = Array.from({length: 60}, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vX: (Math.random() - 0.5) * 0.4,
+                vY: (Math.random() - 0.5) * 0.4
+            }));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 242, 255, 0.4)';
+            particles.forEach(p => {
+                p.x += p.vX; p.y += p.vY;
+                if(p.x < 0 || p.x > canvas.width) p.vX *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vY *= -1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 1, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // --- OVERLAY SYSTEM ---
+        function openLink(url) {
+            document.getElementById('master-frame').src = url;
+            document.getElementById('master-overlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLink() {
+            document.getElementById('master-overlay').style.display = 'none';
+            document.getElementById('master-frame').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- TYPEWRITER ---
+        const messages = ["Accessing Digital Ecosystem...", "Updating AI Prompt Libraries...", "Syncing with Collaborator Nodes...", "System Ready. Welcome, Architect."];
+        let mIdx = 0, cIdx = 0;
+        function type() {
+            if (mIdx < messages.length) {
+                if (cIdx < messages[mIdx].length) {
+                    document.getElementById('typewriter').innerHTML += messages[mIdx].charAt(cIdx);
+                    cIdx++; setTimeout(type, 50);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById('typewriter').innerHTML += "<br>> ";
+                        mIdx++; cIdx = 0; type();
+                    }, 1500);
+                }
+            }
+        }
+
+        // --- LAZY LOAD & INIT ---
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+            });
+        });
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); animate(); type();
+        document.addEventListener('keydown', (e) => { if(e.key === "Escape") closeLink(); });
+        setTimeout(() => document.querySelector('.reveal').classList.add('active'), 100);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
 # 💎 Digital Ecosystem UI 
 **Professional Software Development & AI Content Strategy Hub**
 
