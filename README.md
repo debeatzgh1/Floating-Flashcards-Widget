@@ -1,4 +1,4 @@
- <nav id="slim-nav" class="slim-nav-container">
+<nav id="slim-nav" class="slim-nav-container">
     <div class="nav-left">
         <button class="theme-toggle" onclick="toggleTheme()" title="Switch Theme">
             <i id="theme-icon" class="fas fa-moon"></i>
