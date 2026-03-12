@@ -1,7 +1,7 @@
-# 💎 DeBeatzGH Digital Ecosystem
+# 💎 Digital Ecosystem UI 
 **Professional Software Development & AI Content Strategy Hub**
 
-This repository serves as the central command center for the **DeBeatzGH** brand. It features a high-end, responsive UI built with Tailwind CSS and a custom JavaScript-driven overlay system.
+This ui serves as the central command center for brands. It features a high-end, responsive UI built with Tailwind CSS and a custom JavaScript-driven overlay system.
 
 ## 🚀 Key Features
 - **Master Overlay Engine:** Opens external tools (WordPress Signup, Firebase Distribution, Sales Shop) in a professional, branded iframe without leaving the site.
@@ -21,7 +21,7 @@ This repository serves as the central command center for the **DeBeatzGH** brand
 - `Side-hustle-starter-kit/`: Educational resource distribution.
 
 ## ⚖️ Legal & Privacy
-This site uses local storage to optimize performance and track session status for authentication popups. No personal data is stored outside the user's browser.
+This UI uses local storage to optimize performance and track session status for authentication popups. No personal data is stored outside the user's browser.
 
 ---
 
